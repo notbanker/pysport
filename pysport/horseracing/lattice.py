@@ -1,19 +1,12 @@
 from scipy import linspace
 from scipy.stats import norm
 import numpy as np
-import pandas as pd
 import math
-
-
-
-
-
-
 
 def densitiesPlot( densities, unit, legend = None ):
     import matplotlib.pyplot as plt
     L = len( densities[0] )/2
-    pts = symmetric_lattice(L=L, unit=unit)
+    pts = symmetric_lattice( L=L, unit=unit )
     for density in densities:
         plt.plot( pts, density )
     if legend is not None:
@@ -138,8 +131,6 @@ def expected_payoff( density, densityAll, multiplicityAll, cdf = None, cdfAll = 
     """ Returns expected _conditional_payoff_against_rest broken down by score,
        where _conditional_payoff_against_rest is 1 if we are better than rest (lower) and 1/(1+multiplicity) if we are equal
 
-        See the upcoming book "Risk Neutral Probability in Sport" by yours truly
-
     """
     # Use np.sum( expected_payoff ) for the expectation
     if cdf is None:
@@ -168,7 +159,7 @@ def expected_payoff( density, densityAll, multiplicityAll, cdf = None, cdfAll = 
     multiplicityLeftTail = (1e-18 + numer ) / ( 1e-18 + denom )
     multiplicityRest = multiplicityLeftTail
 
-    T1      = (S1 +1.0e-18) / (f1 + 1e-6 )      # More stable on right tail. Should tend to zero eventually
+    T1      = (S1 +1.0e-18) / (f1 + 1e-6 )      # This calculation is more stable on the right tail. It should tend to zero eventually
     Trest   = (Srest + 1e-18) / ( fRest + 1e-6 )
     multiplicityRightTail = m*Trest / (1 + T1) + m - m1 * (1 + Trest ) / (1 + T1 )
 
@@ -193,7 +184,7 @@ def _winner_of_two_pdf( densityA, densityB, multiplicityA = None, multiplicityB 
     if multiplicityB is None:
         multiplicityB = np.ones( 2*L+1 )
 
-    winA, draw, winB = _conditional_win_draw_loss(densityA, densityB, cdfA, cdfB)
+    winA, draw, winB = _conditional_win_draw_loss( densityA, densityB, cdfA, cdfB )
     multiplicity  = ( winA*multiplicityA + draw*(multiplicityA+multiplicityB) + winB*multiplicityB +1e-18) / ( winA+draw+winB+1e-18)
     return density, multiplicity
 
@@ -235,14 +226,14 @@ def densities_from_offsets( density, offsets ):
 
 def state_prices_from_offsets( density, offsets ):
     densities = densities_from_offsets( density, offsets )
-    densityAll, multiplicityAll = winner_of_many(densities)
+    densityAll, multiplicityAll = winner_of_many( densities )
     return implicit_state_prices( density, densityAll = densityAll, multiplicityAll=multiplicityAll, offsets=offsets )
 
 def implicit_state_prices( density, densityAll, multiplicityAll = None, cdf = None, cdfAll = None, offsets = None ):
     """ Returns the expected _conditional_payoff_against_rest as a function of location changes in cdf """
     L = len( density )/2
     if cdf is None:
-        cdf = pdf_to_cdf(density)
+        cdf = pdf_to_cdf( density )
     if cdfAll is None:
         cdfAll = pdf_to_cdf(densityAll)
     if multiplicityAll is None:
@@ -251,9 +242,9 @@ def implicit_state_prices( density, densityAll, multiplicityAll = None, cdf = No
         offsets = xrange( -L/2, L/2 )
     implicit = list()
     for k in offsets:
-        if k==int(k):
-            offset_cdf = integer_shift(cdf, k)
-            ip         = expected_payoff(density = None, densityAll = densityAll, multiplicityAll=multiplicityAll, cdf = offset_cdf, cdfAll = cdfAll)
+        if k==int( k ):
+            offset_cdf = integer_shift( cdf, k )
+            ip         = expected_payoff( density = None, densityAll = densityAll, multiplicityAll=multiplicityAll, cdf = offset_cdf, cdfAll = cdfAll)
             implicit.append( np.sum( ip ) )
         else:
             (l, l_coef ), ( r, r_coef) = _low_high( k )

@@ -27,4 +27,4 @@ chosen, team = salary_constrained_team( names=names, salaries=salaries, \
                                         num_pick=2 )
 
 # That's all:
-print "Your team is " + str(team)
+print "Your team is " + str( team )

@@ -5,6 +5,8 @@
 #   We invert the relationship between win probabilities and performance densities in a competition    #
 #   where all contestants' scoring distributions share the same density up to translation.             #
 #                                                                                                      #
+#   See the upcoming book "Risk Neutral Probability in Sport" by yours truly                           #
+#                                                                                                      #
 ########################################################################################################
 
 # There are three horses in a race.
