@@ -4,22 +4,11 @@ import numpy as np
 import pandas as pd
 import math
 
-########################################################################################################
-#                                                                                                      #
-#   The module provides one solution to the "horse race problem"                                       #
-#                                                                                                      #
-#   We invert the relationship between win probabilities and performance densities in a competition    #
-#   where all contestants' scoring distributions share the same density up to translation.             #
-#                                                                                                      #
-########################################################################################################
 
 
 
 
 
-#############################################
-#  Plotting                                 #
-#############################################
 
 def densitiesPlot( densities, unit, legend = None ):
     import matplotlib.pyplot as plt

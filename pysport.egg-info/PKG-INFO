@@ -1,10 +1,12 @@
-Metadata-Version: 1.0
+Metadata-Version: 1.1
 Name: pysport
-Version: 0.1
+Version: 0.2
 Summary: Utilities for sports probabilities
 Home-page: http://github.com/notbanker/pysport
 Author: Peter Cotton
 Author-email: golfape@gmail.com
 License: MIT
+Download-URL: https://github.com/notbanker/pysport/tarball/0.2
 Description: UNKNOWN
+Keywords: sport,fantasy,draft
 Platform: UNKNOWN

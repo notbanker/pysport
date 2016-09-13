@@ -1,8 +1,6 @@
-
 from .lattice import skew_normal_density, center_density,\
     state_prices_from_offsets, densities_and_coefs_from_offsets, winner_of_many,\
     expected_payoff, densities_from_offsets, implicit_state_prices, densitiesPlot
-
 import pandas as pd  # todo: get rid of this dependency
 import numpy as np
 
@@ -37,6 +35,10 @@ def prices_from_dividends( dividends ):
 def dividends_from_prices( prices ):
     """ Australian style dividends """
     return [ 1./d for d in normalize( prices ) ]
+
+def normalize_dividends( dividends ):
+    return dividends_from_prices( prices_from_dividends( dividends ))
+
 
 def racing_density( loc ):
     """ A rough and ready distribution of performance distributions for one round """
